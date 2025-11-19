@@ -19,9 +19,13 @@ def profile(request, username):
     Displays any user's information based on the username parameter.
     """
     user = get_object_or_404(User, username=username)
+    profile_picture = user.profile_picture
     return render(request, 'core/profile.html', {
         'user': user,
-        'is_own_profile': request.user.username == username
+        'is_own_profile': request.user.username == username,
+        'profile_picture': profile_picture,
+        'description': user.description,
+        'gender': user.gender,
     })
 
 
@@ -32,6 +36,8 @@ def profiles(request):
     Displays a list of all users.
     """
     users = User.objects.all().order_by('username')
+    profile_pictures = [user.profile_picture for user in users]
     return render(request, 'core/profiles.html', {
-        'users': users
+        'users': users,
+        'profile_pictures': profile_pictures
     })
