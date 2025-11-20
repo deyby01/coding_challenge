@@ -43,12 +43,12 @@
 
                 <div class="field">
                     <strong class="field-label">Description:</strong>
-                    <p class="field-value">{{ description|default:"Not provided" }}</p>
+                    <p class="field-value">{{ user.description|default:"Not provided" }}</p>
                 </div>
 
                 <div class="field">
                     <strong class="field-label">Gender:</strong>
-                    <p class="field-value">{{ gender|default:"Not provided" }}</p>
+                    <p class="field-value">{{ user.gender|default:"Not provided" }}</p>
                 </div>
             </div>
 
@@ -79,14 +79,36 @@
                 <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;">
                     {% for image in drawing_images %}
                         <div style="flex: 0.0 calc(33.333% - 1rem); min-width: 200px; ">
-                            <img src="{% static image %}" alt="Drawing Image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 8px; border: 2px solid #ddd;">
+                            <img src="{% static image %}" alt="Drawing Image" onclick="openModal('{% static image %}')" style="width: 100%; height: 200px; object-fit: contain; border-radius: 8px; border: 2px solid #ddd;">
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
+        <div id="imageModal" class="modal" oneClick="closeModal()">
+            <span class="modal-close" oneClick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
         <div class="btn-row">
             <a href="{% url 'core:profiles' %}" class="btn btn-primary">Back to Profiles</a>
         </div>
     </div>
+
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById('imageModal').style.display = 'block';
+            document.getElementById('modalImage').src = imageSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 {% endblock %}

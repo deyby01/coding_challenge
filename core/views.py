@@ -28,11 +28,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_own_profile'] = self.request.user.username == self.object.username
-        context['profile_picture'] = self.object.profile_picture
-        context['description'] = self.object.description
-        context['gender'] = self.object.gender
 
-        # Drawing images
         drawing_path = settings.BASE_DIR / 'static' / 'image' / 'drawing'
         image_files = []
         if drawing_path.exists():
