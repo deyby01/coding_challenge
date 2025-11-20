@@ -74,7 +74,17 @@
                 </div>
             </div>
         </div>
-
+        <div class="section-gallery">
+            {% if drawing_images %}
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem;">
+                    {% for image in drawing_images %}
+                        <div style="flex: 0.0 calc(33.333% - 1rem); min-width: 200px; ">
+                            <img src="{% static image %}" alt="Drawing Image" style="width: 100%; height: 200px; object-fit: contain; border-radius: 8px; border: 2px solid #ddd;">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
         <div class="btn-row">
             <a href="{% url 'core:profiles' %}" class="btn btn-primary">Back to Profiles</a>
         </div>

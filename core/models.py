@@ -17,6 +17,7 @@ class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='image/user/', blank=True, null=True)
 
     class Meta:
+        ordering = ['username']
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
